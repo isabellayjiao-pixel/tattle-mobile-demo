@@ -2822,8 +2822,9 @@ export default function App() {
 
   return (
     <main className="desktop-stage demo-layout">
-      <DemoPushSidebar activeId={lastTriggeredId} onReset={handleReset} onTrigger={handleTriggerPush} />
-      <IPhoneShell>
+      <div className="demo-fit">
+        <DemoPushSidebar activeId={lastTriggeredId} onReset={handleReset} onTrigger={handleTriggerPush} />
+        <IPhoneShell>
         <Routes>
           <Route path="/" element={<Navigate to="/device/home" replace />} />
           <Route
@@ -2845,7 +2846,8 @@ export default function App() {
           <Route path="/performance/insights" element={<PerformanceScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
         </Routes>
-      </IPhoneShell>
+        </IPhoneShell>
+      </div>
     </main>
   );
 }
