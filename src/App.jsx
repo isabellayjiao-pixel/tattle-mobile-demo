@@ -44,6 +44,7 @@ import {
   ChannelLogo
 } from "./icons";
 import profileBannerImg from "./assets/profile-banner.jpg";
+import profileBrandLogoImg from "./assets/profile-brand-logo.jpg";
 import tattleAppIcon from "./assets/tattle-app-icon.jpg";
 
 const PHONE_BEZEL = 10;
@@ -164,7 +165,7 @@ function HomeLockScreen({ notifications, onNotificationClick, onOpenApp }) {
 const DEMO_TIER_OPTIONS = ["all", ...pushTiers];
 
 function DemoPushSidebar({ activeId, onReset, onTrigger }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [query, setQuery] = useState("");
   const [tierFilter, setTierFilter] = useState("all");
 
@@ -1330,13 +1331,13 @@ const ACTION_ITEMS = [
     sources: [
       {
         tone: "orange",
-        title: "Guest Response",
-        text: "Waited a while before anyone checked on our table. The staff seemed busy and we had to flag someone down just to get refills."
+        title: "Training Material",
+        text: "VIP Experience standard: maintain one-foot proximity to tables and stay within a 5-foot section radius at all times. Use the “Every Guest, Every Time” positioning card during pre-shift huddles."
       },
       {
         tone: "blue",
-        title: "Knowledge Base",
-        text: "VIP Experience standard: maintain one-foot proximity to tables and stay within a 5-foot section radius at all times."
+        title: "Guest Response",
+        text: "Waited a while before anyone checked on our table. The staff seemed busy and we had to flag someone down just to get refills."
       },
       {
         tone: "blue",
@@ -1345,13 +1346,13 @@ const ACTION_ITEMS = [
       },
       {
         tone: "orange",
-        title: "Questionnaire",
-        text: "Survey question “How attentive was our staff?” scored below target across the last reporting period."
+        title: "Training Material",
+        text: "Survey question “How attentive was our staff?” scored below target across the last reporting period. Review the attentiveness role-play module with the dinner team."
       },
       {
         tone: "neutral",
-        title: "Questionnaire",
-        text: "Staff attentiveness trended down 8% compared with the previous month across the dinner daypart."
+        title: "AI Coach Boundaries",
+        text: "This action item focuses on in-store service behaviors and team training only. It does not change scheduling, staffing levels, or compensation. Escalate those topics to your district manager."
       }
     ]
   },
@@ -1364,13 +1365,13 @@ const ACTION_ITEMS = [
     sources: [
       {
         tone: "orange",
-        title: "Guest Response",
-        text: "The burger was great but the fries were lukewarm by the time they reached our table. A little disappointing."
+        title: "Training Material",
+        text: "Fry holding time should not exceed 7 minutes before quality and temperature noticeably drop. Review the hot-holding SOP with the dinner shift."
       },
       {
         tone: "blue",
-        title: "Knowledge Base",
-        text: "Fry holding time should not exceed 7 minutes before quality and temperature noticeably drop."
+        title: "Guest Response",
+        text: "The burger was great but the fries were lukewarm by the time they reached our table. A little disappointing."
       }
     ]
   }
@@ -1463,6 +1464,9 @@ function AddActionItemSheet({ onClose, onCreate }) {
 
 function ActionItemSheet({ item, onClose, onComplete }) {
   const [srcIdx, setSrcIdx] = useState(0);
+  useEffect(() => {
+    setSrcIdx(0);
+  }, [item.id]);
   const hasSources = item.sources && item.sources.length > 0;
   const src = hasSources ? item.sources[Math.min(srcIdx, item.sources.length - 1)] : null;
   return (
@@ -2654,16 +2658,7 @@ function NotificationsFlow({ onClose, isDark }) {
 function ProfileBrandLogo() {
   return (
     <span className="profile-brand" aria-hidden>
-      <svg className="profile-brand-logo" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="34" cy="34" r="32" fill="#fff" />
-        <ellipse cx="34" cy="30" rx="18" ry="7" fill="#f4c542" />
-        <path d="M18 30c0-6 7-11 16-11s16 5 16 11" fill="#c41e2a" />
-        <rect x="22" y="30" width="24" height="10" rx="3" fill="#7a3f1f" />
-        <ellipse cx="34" cy="40" rx="16" ry="5" fill="#f4c542" />
-        <text x="34" y="58" textAnchor="middle" fill="#c41e2a" fontSize="8.5" fontWeight="800" fontFamily="Inter, sans-serif" letterSpacing="-0.02em">
-          CB
-        </text>
-      </svg>
+      <img className="profile-brand-logo" src={profileBrandLogoImg} alt="" />
     </span>
   );
 }
@@ -2686,13 +2681,13 @@ function ProfileScreen() {
       <div className="scroll-area">
         <section className="surface-card profile-card">
           <div className="profile-banner">
-            <img className="profile-banner-img" src={profileBannerImg} alt="" />
+            <img className="profile-banner-img" src={profileBannerImg} alt="Restaurant food" />
             <span className="profile-admin">Admin</span>
             <ProfileBrandLogo />
           </div>
           <div className="profile-info">
             <div>
-              <h3>Crestline Burger Co.</h3>
+              <h3>Grilling Me Softly</h3>
               <p>Merchant ID: 2651</p>
             </div>
             <button className="switch-link" type="button">
