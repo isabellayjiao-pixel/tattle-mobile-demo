@@ -482,11 +482,24 @@ function RatingRangeRow({ caption, type, draft, toggleDraft }) {
   );
 }
 
-function FilterSheet({ draft, isDrafted, toggleDraft, onApply, onClose, groups: groupDefs = FILTER_GROUPS, showSearch = true }) {
+function FilterSheet({
+  draft,
+  isDrafted,
+  toggleDraft,
+  onApply,
+  onClose,
+  groups: groupDefs = FILTER_GROUPS,
+  showSearch = true,
+  searchQuery: controlledQuery,
+  onSearchQueryChange,
+  searchPlaceholder = "Search reviews…"
+}) {
   const [open, setOpen] = useState(() =>
     Object.fromEntries(groupDefs.map((g) => [g.type, g.type === "rating"]))
   );
-  const [query, setQuery] = useState("");
+  const [internalQuery, setInternalQuery] = useState("");
+  const query = controlledQuery !== undefined ? controlledQuery : internalQuery;
+  const setQuery = onSearchQueryChange ?? setInternalQuery;
   const toggleSection = (type) => setOpen((cur) => ({ ...cur, [type]: !cur[type] }));
 
   const groups = groupDefs.map((g) => ({
@@ -515,7 +528,7 @@ function FilterSheet({ draft, isDrafted, toggleDraft, onApply, onClose, groups: 
         {showSearch ? (
           <div className="sheet-search">
             <IconSearch width={18} height={18} />
-            <input placeholder="Search reviews…" value={query} onChange={(e) => setQuery(e.target.value)} />
+            <input placeholder={searchPlaceholder} value={query} onChange={(e) => setQuery(e.target.value)} />
           </div>
         ) : null}
 
@@ -580,7 +593,6 @@ function InboxScreen({ unreadIds, onMarkRead }) {
   const navigate = useNavigate();
   const tab = searchParams.get("tab") === "reviews" ? "reviews" : "surveys";
 
-  const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
   const [draft, setDraft] = useState([]);
@@ -663,14 +675,6 @@ function InboxScreen({ unreadIds, onMarkRead }) {
         </button>
       </div>
 
-      {searchOpen ? (
-        <div className="search-bar">
-          <IconSearch width={18} height={18} />
-          <input autoFocus placeholder="Search feedback…" value={query} onChange={(e) => setQuery(e.target.value)} />
-          <button type="button" onClick={() => { setQuery(""); setSearchOpen(false); }}>Cancel</button>
-        </div>
-      ) : null}
-
       <div className="inbox-list">
         {items.map((item) => {
           const unread = unreadIds.has(item.id);
@@ -711,7 +715,7 @@ function InboxScreen({ unreadIds, onMarkRead }) {
 
       <div className="inbox-float">
         <div className="quick-actions">
-          <button type="button" onClick={() => setSearchOpen((v) => !v)}><IconSearch width={17} height={17} /></button>
+          <button type="button" className={filterOpen ? "on" : ""} onClick={openFilters}><IconSearch width={17} height={17} /></button>
           <span className="qa-divider" />
           <button type="button" className={activeFilters.length ? "on" : ""} onClick={openFilters}><IconSliders width={17} height={17} /></button>
         </div>
@@ -735,6 +739,9 @@ function InboxScreen({ unreadIds, onMarkRead }) {
           onClear={() => setDraft([])}
           onApply={() => { setActiveFilters(draft); setFilterOpen(false); }}
           onClose={() => setFilterOpen(false)}
+          searchQuery={query}
+          onSearchQueryChange={setQuery}
+          searchPlaceholder={tab === "reviews" ? "Search reviews…" : "Search surveys…"}
         />
       ) : null}
 
