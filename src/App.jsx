@@ -46,12 +46,15 @@ import {
 import profileBannerImg from "./assets/profile-banner.jpg";
 import profileBrandLogoImg from "./assets/profile-brand-logo.jpg";
 import tattleAppIcon from "./assets/tattle-app-icon.jpg";
+import tattleLogoWhite from "./assets/tattle-logo-white.png";
 
 const PHONE_BEZEL = 10;
 const PHONE_WIDTH = 382;
 const PHONE_HEIGHT = 834;
 const SHELL_WIDTH = PHONE_WIDTH + PHONE_BEZEL * 2;
 const SHELL_HEIGHT = PHONE_HEIGHT + PHONE_BEZEL * 2;
+const DEMO_ACCESS_KEY = "tattle_demo_access";
+const DEMO_PASSWORD = "TattleIsAwesome2026";
 
 function getInitialUnreadIds() {
   const surveys = feedback
@@ -188,7 +191,7 @@ function DemoPushSidebar({ activeId, onReset, onTrigger }) {
         <div className="demo-panel-topbar-row">
           <div className="demo-panel-head">
             <h2>Notification Panel</h2>
-            <p>Trigger notifications and test deep links into the app.</p>
+            <p>Trigger push notifications and deep link into the app.</p>
           </div>
           <button
             className="circle-btn demo-sidebar-toggle"
@@ -202,14 +205,15 @@ function DemoPushSidebar({ activeId, onReset, onTrigger }) {
         </div>
       </header>
 
-      <div className="demo-panel-body" hidden={collapsed}>
+      <div className="demo-panel-body" aria-hidden={collapsed}>
+        <div className="demo-panel-body-inner">
         <div className="demo-panel-toolbar">
           <button className="btn-primary demo-reset-btn" type="button" onClick={onReset}>
             <IconRefresh width={16} height={16} />
             Reset to Lock Screen
           </button>
 
-          <div className="demo-panel-search search-bar">
+          <div className="sheet-search demo-panel-search">
             <IconSearch width={18} height={18} />
             <input
               placeholder="Search notifications…"
@@ -218,7 +222,7 @@ function DemoPushSidebar({ activeId, onReset, onTrigger }) {
             />
           </div>
 
-          <div className="demo-tier-chips chip-row">
+          <div className="demo-tier-chips">
             {DEMO_TIER_OPTIONS.map((tier) => (
               <button
                 key={tier}
@@ -246,17 +250,14 @@ function DemoPushSidebar({ activeId, onReset, onTrigger }) {
                 <div className="inbox-main">
                   <div className="row-top">
                     <strong className="row-name">{item.title}</strong>
-                    <span className={`tag-chip demo-priority ${item.priority.toLowerCase()}`}>{item.priority}</span>
-                  </div>
-                  <div className="row-meta">
                     <span className="tag-chip chip-neu">{item.tier}</span>
                   </div>
                   <p className="row-preview">{item.body}</p>
-                  <p className="demo-push-route">{item.route}</p>
                 </div>
               </button>
             ))
           )}
+        </div>
         </div>
       </div>
     </aside>
@@ -307,6 +308,60 @@ function LoginScreen() {
         <Link className="btn-primary" to="/inbox?tab=surveys">
           Login
         </Link>
+      </div>
+    </div>
+  );
+}
+
+function AccessGate({ onSuccess }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [exiting, setExiting] = useState(false);
+
+  useEffect(() => {
+    if (!exiting) return undefined;
+    const timer = setTimeout(onSuccess, 520);
+    return () => clearTimeout(timer);
+  }, [exiting, onSuccess]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === DEMO_PASSWORD) {
+      sessionStorage.setItem(DEMO_ACCESS_KEY, "1");
+      setError(false);
+      setExiting(true);
+      return;
+    }
+    setError(true);
+  };
+
+  return (
+    <div className={`access-gate ${exiting ? "is-exiting" : ""}`}>
+      <div className="access-gate-wallpaper" aria-hidden />
+      <div className="access-gate-content">
+        <img className="access-gate-logo" src={tattleLogoWhite} alt="Tattle" />
+        <p className="access-gate-subtitle">Mobile App Demo</p>
+        <form className="access-gate-card" onSubmit={handleSubmit}>
+          <label className="field-label">
+            Password
+            <input
+              className="field"
+              type="password"
+              placeholder="Enter demo password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (error) setError(false);
+              }}
+              autoComplete="current-password"
+              autoFocus
+            />
+          </label>
+          {error ? <p className="access-gate-error">Incorrect password. Please try again.</p> : null}
+          <button className="btn-primary access-gate-submit" type="submit">
+            Enter Demo
+          </button>
+        </form>
       </div>
     </div>
   );
@@ -386,11 +441,63 @@ function moreCount(item) {
   return (item.id.charCodeAt(item.id.length - 1) % 5) + 1;
 }
 
+function locationShortName(loc) {
+  return loc.name.includes(" – ") ? loc.name.split(" – ")[1] : loc.name;
+}
+
+const STORE_GROUPS = [
+  { value: "grp_austin", label: "Austin Metro", locationIds: ["loc_001", "loc_002"] },
+  { value: "grp_dallas", label: "Dallas Metro", locationIds: ["loc_003", "loc_004"] },
+  { value: "grp_houston", label: "Houston Metro", locationIds: ["loc_005", "loc_006"] },
+  { value: "grp_sa", label: "San Antonio", locationIds: ["loc_007"] },
+  { value: "grp_nashville", label: "Nashville Region", locationIds: ["loc_008", "loc_009"] },
+  { value: "grp_denver", label: "Denver Market", locationIds: ["loc_010", "loc_011"] }
+];
+
+const GROUP_FILTER_OPTIONS = STORE_GROUPS.map((g) => ({ value: g.value, label: g.label }));
+
+function locationIdsForGroups(groupValues) {
+  if (!groupValues.length) return locations.map((l) => l.id);
+  const ids = new Set();
+  groupValues.forEach((gv) => {
+    const g = STORE_GROUPS.find((sg) => sg.value === gv);
+    g?.locationIds.forEach((id) => ids.add(id));
+  });
+  return [...ids];
+}
+
+const OBJECTIVE_NAMES = ["Order Accuracy", "Speed of Service", "Guest Experience", "Food Quality", "Cleanliness"];
+
+const LOCATION_TODO_META = Object.fromEntries(
+  locations.map((loc, i) => {
+    const start = 65 + (i * 4) % 12;
+    const progress = Math.min(97, Math.max(58, loc.cer - 2 + (i % 5)));
+    const target = 87;
+    return [
+      loc.id,
+      {
+        objective: OBJECTIVE_NAMES[i % OBJECTIVE_NAMES.length],
+        focus: ["Special Instructions", "Table Touches", "Hot Holding", "Line Speed", "Dining Room"][i % 5],
+        start,
+        progress,
+        target,
+        status: progress >= target - 4 ? "on-track" : "off-track"
+      }
+    ];
+  })
+);
+
 const STATS_FILTER_GROUPS = [
+  {
+    type: "group",
+    label: "Group",
+    mode: "multi",
+    options: GROUP_FILTER_OPTIONS
+  },
   {
     type: "location",
     label: "Location",
-    mode: "single",
+    mode: "multi",
     options: [
       { value: "7th-colorado", label: "7th & Colorado" },
       { value: "aurora", label: "Aurora" },
@@ -444,10 +551,11 @@ const DEFAULT_STATS_FILTERS = [
 
 const FILTER_GROUPS = [
   { type: "rating", label: "Star Rating", mode: "range" },
+  { type: "group", label: "Group", mode: "multi", options: GROUP_FILTER_OPTIONS },
   { type: "date", label: "Date Range", mode: "single", options: [
     { value: "7", label: "Past 7 Days" }, { value: "30", label: "Past 30 Days" }, { value: "90", label: "Past 90 Days" }, { value: "180", label: "Past 6 Months" }, { value: "all", label: "All Time" }
   ] },
-  { type: "location", label: "Location", mode: "multi", options: locations.slice(0, 8).map((l) => ({ value: l.id, label: l.name })) },
+  { type: "location", label: "Location", mode: "multi", options: locations.map((l) => ({ value: l.id, label: locationShortName(l) })) },
   { type: "platform", label: "Platforms", mode: "multi", options: ["Google", "Yelp", "Facebook", "DoorDash", "Tripadvisor", "OpenTable"].map((p) => ({ value: p, label: p })) },
   { type: "status", label: "Response Status", mode: "single", options: [
     { value: "responded", label: "Responded" }, { value: "pending", label: "Needs Response" }, { value: "flagged", label: "Flagged" }
@@ -623,6 +731,7 @@ function InboxScreen({ unreadIds, onMarkRead }) {
     const vals = (type) => activeFilters.filter((f) => f.type === type).map((f) => f.value);
     const cats = vals("category");
     const platforms = vals("platform");
+    const groups = vals("group");
     const locs = vals("location");
     const statuses = vals("status");
     const ratingMin = vals("ratingMin")[0];
@@ -631,6 +740,10 @@ function InboxScreen({ unreadIds, onMarkRead }) {
     if (ratingMax) list = list.filter((i) => i.rating <= ratingMax);
     if (cats.length) list = list.filter((i) => cats.includes(i.category));
     if (platforms.length) list = list.filter((i) => platforms.includes(i.channel));
+    if (groups.length) {
+      const groupLocIds = new Set(locationIdsForGroups(groups));
+      list = list.filter((i) => groupLocIds.has(i.locationId));
+    }
     if (locs.length) list = list.filter((i) => locs.includes(i.locationId));
     if (statuses.length) {
       list = list.filter((i) =>
@@ -1565,8 +1678,82 @@ function FactorReviewsScreen({ factor, onClose }) {
   );
 }
 
+function MultiSelectDropdown({ placeholder, options, value, onChange }) {
+  const [open, setOpen] = useState(false);
+
+  const label = (() => {
+    if (!value.length) return placeholder;
+    if (value.length === options.length) return "All Groups";
+    if (value.length === 1) return options.find((o) => o.value === value[0])?.label ?? placeholder;
+    return `${value.length} Groups`;
+  })();
+
+  const toggle = (optValue) => {
+    const exists = value.includes(optValue);
+    onChange(exists ? value.filter((v) => v !== optValue) : [...value, optValue]);
+  };
+
+  return (
+    <>
+      <button className={`dropdown ${open ? "open" : ""}`} type="button" onClick={() => setOpen(true)}>
+        {label}
+        <IconChevronDown width={18} height={18} />
+      </button>
+      {open ? (
+        <div className="overlay" onClick={() => setOpen(false)}>
+          <div className="sheet group-picker-sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-handle" />
+            <div className="compose-head">
+              <h4>Select Groups</h4>
+              <button className="circle-btn ghost" type="button" onClick={() => setOpen(false)}>
+                <IconX width={18} height={18} />
+              </button>
+            </div>
+            <div className="filter-list group-picker-list">
+              {options.map((opt) => {
+                const on = value.includes(opt.value);
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className={`filter-list-row ${on ? "on" : ""}`}
+                    onClick={() => toggle(opt.value)}
+                  >
+                    <span className={`opt-check ${on ? "on" : ""}`} />
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="filter-foot">
+              <button className="btn-primary apply-filters" type="button" onClick={() => setOpen(false)}>
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function GroupTrendArrow({ up }) {
+  return (
+    <span className={`metric-trend ${up ? "up" : "down"}`}>
+      {up ? (
+        <IconArrowUp width={16} height={16} strokeWidth={2.8} />
+      ) : (
+        <IconArrowDown width={16} height={16} strokeWidth={2.8} />
+      )}
+    </span>
+  );
+}
+
 function ToDoScreen() {
   const [view, setView] = useState("store");
+  const [groupsTab, setGroupsTab] = useState("objectives");
+  const [selectedGroups, setSelectedGroups] = useState(() => STORE_GROUPS.map((g) => g.value));
+  const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [items, setItems] = useState(() => ACTION_ITEMS.map((a) => ({ ...a })));
   const [addOpen, setAddOpen] = useState(false);
   const [activeId, setActiveId] = useState(null);
@@ -1574,6 +1761,10 @@ function ToDoScreen() {
 
   const remaining = items.filter((i) => !i.done).length;
   const activeItem = items.find((i) => i.id === activeId) || null;
+  const selectedLocation = selectedLocationId ? locations.find((l) => l.id === selectedLocationId) : null;
+  const storeMeta = selectedLocation
+    ? LOCATION_TODO_META[selectedLocation.id]
+    : { objective: "Order Accuracy", focus: "Special Instructions", start: 71, progress: 73, target: 87, status: "on-track" };
 
   const completeItem = (id) =>
     setItems((prev) => prev.map((i) => (i.id === id ? { ...i, done: true } : i)));
@@ -1584,55 +1775,121 @@ function ToDoScreen() {
       { id: `ai${Date.now()}`, num: prev.length + 1, date: "June 4, 2026", body: text, done: false, sources: [] }
     ]);
 
-  const groupRows = locations.slice(0, 9).map((loc, i) => ({
-    id: loc.id,
-    name: loc.name.split(" – ")[1] ?? loc.name,
-    goal: 80,
-    score: loc.cer,
-    up: i % 3 !== 0
-  }));
+  const visibleLocationIds = useMemo(() => locationIdsForGroups(selectedGroups), [selectedGroups]);
+
+  const groupRows = useMemo(() => {
+    const goal = 80;
+    return locations
+      .filter((loc) => visibleLocationIds.includes(loc.id))
+      .map((loc, i) => {
+        const meta = LOCATION_TODO_META[loc.id];
+        if (groupsTab === "objectives") {
+          return {
+            id: loc.id,
+            name: locationShortName(loc),
+            goal: meta.target,
+            score: meta.progress,
+            up: meta.progress >= meta.start
+          };
+        }
+        const onTrack = loc.cer >= goal;
+        if (groupsTab === "on-track" && !onTrack) return null;
+        if (groupsTab === "off-track" && onTrack) return null;
+        return {
+          id: loc.id,
+          name: locationShortName(loc),
+          goal,
+          score: loc.cer,
+          up: i % 3 !== 0
+        };
+      })
+      .filter(Boolean);
+  }, [visibleLocationIds, groupsTab]);
+
+  const openLocation = (locId) => {
+    setSelectedLocationId(locId);
+    setView("location");
+  };
+
+  const showStoreContent = view === "store" || view === "location";
+  const topTitle = view === "location" && selectedLocation
+    ? locationShortName(selectedLocation)
+    : view === "store"
+      ? "To-Do List"
+      : "March Objectives";
+  const topSubtitle = view === "location" && selectedLocation
+    ? selectedLocation.manager
+    : "25 Days Left";
 
   return (
     <div className="screen todo-screen">
       <header className="app-topbar">
-        <h2>{view === "store" ? "To-Do List" : "March Objectives"}</h2>
-        <p>25 Days Left</p>
+        {view === "location" ? (
+          <button
+            className="circle-btn ghost todo-back"
+            type="button"
+            onClick={() => {
+              setView("groups");
+              setSelectedLocationId(null);
+            }}
+          >
+            <IconBack width={18} height={18} />
+          </button>
+        ) : null}
+        <div className="todo-topbar-copy">
+          <h2>{topTitle}</h2>
+          <p>{topSubtitle}</p>
+        </div>
       </header>
 
       <div className="seg-tabs">
-        <button className={`seg ${view === "store" ? "active" : ""}`} type="button" onClick={() => setView("store")}>
+        <button
+          className={`seg ${view === "store" ? "active" : ""}`}
+          type="button"
+          onClick={() => {
+            setView("store");
+            setSelectedLocationId(null);
+          }}
+        >
           My Store
         </button>
-        <button className={`seg ${view === "groups" ? "active" : ""}`} type="button" onClick={() => setView("groups")}>
+        <button
+          className={`seg ${view === "groups" || view === "location" ? "active" : ""}`}
+          type="button"
+          onClick={() => {
+            setView("groups");
+            setSelectedLocationId(null);
+          }}
+        >
           Groups
         </button>
       </div>
 
       <div className="scroll-area">
-        {view === "store" ? (
+        {showStoreContent ? (
           <>
             <section className="surface-card objective-card">
               <div className="objective-head">
                 <div>
                   <h3>Monthly Objective</h3>
-                  <p>Order Accuracy</p>
+                  <p>{storeMeta.objective}</p>
                 </div>
-                <span className="status-pill on-track">On Track</span>
+                <span className={`status-pill ${storeMeta.status}`}>{storeMeta.status === "on-track" ? "On Track" : "Off Track"}</span>
               </div>
               <div className="objective-ring">
                 <div className="ring-side">
-                  <strong>71%</strong>
+                  <strong>{storeMeta.start}%</strong>
                   <span>Start</span>
                 </div>
-                <ProgressRing value={73} start={71} target={87} />
+                <ProgressRing value={storeMeta.progress} start={storeMeta.start} target={storeMeta.target} />
                 <div className="ring-side">
-                  <strong>87%</strong>
+                  <strong>{storeMeta.target}%</strong>
                   <span>Target</span>
                 </div>
               </div>
               <div className="objective-footer">
                 <strong>Focus Area</strong>
-                <span>Special Instructions</span>
+                <span>{storeMeta.focus}</span>
               </div>
             </section>
 
@@ -1676,30 +1933,57 @@ function ToDoScreen() {
           </>
         ) : (
           <>
-            <button className="dropdown" type="button">
-              Select Group
-              <IconChevronDown width={18} height={18} />
-            </button>
+            <MultiSelectDropdown
+              placeholder="Select Group"
+              options={GROUP_FILTER_OPTIONS}
+              value={selectedGroups}
+              onChange={setSelectedGroups}
+            />
+            <div className="seg-tabs group-sub-tabs three-col">
+              <button
+                className={`seg ${groupsTab === "objectives" ? "active" : ""}`}
+                type="button"
+                onClick={() => setGroupsTab("objectives")}
+              >
+                Objectives
+              </button>
+              <button
+                className={`seg ${groupsTab === "on-track" ? "active" : ""}`}
+                type="button"
+                onClick={() => setGroupsTab("on-track")}
+              >
+                On Track
+              </button>
+              <button
+                className={`seg ${groupsTab === "off-track" ? "active" : ""}`}
+                type="button"
+                onClick={() => setGroupsTab("off-track")}
+              >
+                Off Track
+              </button>
+            </div>
             <section className="surface-card group-card">
               <div className="group-head">
                 <span>Location</span>
-                <span>Current Score</span>
+                <span>{groupsTab === "objectives" ? "Progress" : "Current Score"}</span>
               </div>
-              {groupRows.map((row) => (
-                <div className="group-row" key={row.id}>
-                  <div className="group-loc">
-                    <strong>{row.name}</strong>
-                    <div className="goal-bar">
-                      <span className={pctClass(row.score)} style={{ width: `${Math.min(row.score, 100)}%` }} />
+              {groupRows.length === 0 ? (
+                <p className="empty-list group-empty">No locations match this view.</p>
+              ) : (
+                groupRows.map((row) => (
+                  <button className="group-row" key={row.id} type="button" onClick={() => openLocation(row.id)}>
+                    <div className="group-loc">
+                      <strong>{row.name}</strong>
+                      <div className="goal-bar">
+                        <span className={pctClass(row.score)} style={{ width: `${Math.min(row.score, 100)}%` }} />
+                      </div>
+                      <small>Goal: {row.goal}%</small>
                     </div>
-                    <small>Goal: {row.goal}%</small>
-                  </div>
-                  <span className={`trend ${row.up ? "up" : "down"}`}>
-                    {row.up ? <IconArrowUp width={18} height={18} /> : <IconArrowDown width={18} height={18} />}
-                  </span>
-                  <span className={`score-pill ${pctClass(row.score)}`}>{row.score}%</span>
-                </div>
-              ))}
+                    <GroupTrendArrow up={row.up} />
+                    <span className={`score-pill ${pctClass(row.score)}`}>{row.score}%</span>
+                  </button>
+                ))
+              )}
             </section>
           </>
         )}
@@ -2059,7 +2343,13 @@ function PerformanceScreen() {
   const [activeFilters, setActiveFilters] = useState(() => [...DEFAULT_STATS_FILTERS]);
   const [activeReport, setActiveReport] = useState(null);
   const perfMetric = PERF_METRICS[metric];
-  const locationLabel = activeFilters.find((f) => f.type === "location")?.label ?? "7th & Colorado";
+  const locationFilters = activeFilters.filter((f) => f.type === "location");
+  const locationLabel =
+    locationFilters.length === 0
+      ? "All Locations"
+      : locationFilters.length === 1
+        ? locationFilters[0].label
+        : `${locationFilters.length} Locations`;
 
   const toggleDraft = (type, value, label, single = false) => {
     setDraft((cur) => {
@@ -2776,7 +3066,7 @@ function ProfileScreen() {
   );
 }
 
-export default function App() {
+function DemoApp() {
   const navigate = useNavigate();
   const [lockNotifications, setLockNotifications] = useState([]);
   const [lastTriggeredId, setLastTriggeredId] = useState(null);
@@ -2821,7 +3111,7 @@ export default function App() {
   const handleOpenApp = () => navigate("/inbox?tab=surveys");
 
   return (
-    <main className="desktop-stage demo-layout">
+    <main className="desktop-stage demo-layout demo-enter">
       <div className="demo-fit">
         <DemoPushSidebar activeId={lastTriggeredId} onReset={handleReset} onTrigger={handleTriggerPush} />
         <IPhoneShell>
@@ -2850,4 +3140,14 @@ export default function App() {
       </div>
     </main>
   );
+}
+
+export default function App() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem(DEMO_ACCESS_KEY) === "1");
+
+  if (!authed) {
+    return <AccessGate onSuccess={() => setAuthed(true)} />;
+  }
+
+  return <DemoApp />;
 }
