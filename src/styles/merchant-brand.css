@@ -1,0 +1,82 @@
+/* Shared merchant logo — operator profile + guest touchpoints */
+.merchant-brand-logo {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.merchant-brand-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Operator Settings profile card */
+.merchant-brand-logo--profile {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.profile-dark .merchant-brand-logo--profile {
+  border-color: #1c1c1e;
+}
+
+/* Survey header (Tattle merchant banner) */
+.merchant-brand-logo--survey {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Email invite hero overlay */
+.merchant-brand-logo--email-hero {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+/* iMessage contact avatar */
+.merchant-brand-logo--avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* RCS header + card badge */
+.merchant-brand-logo--rcs-header {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.merchant-brand-logo--rcs-card {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Survey location list rows */
+.merchant-brand-logo--location {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

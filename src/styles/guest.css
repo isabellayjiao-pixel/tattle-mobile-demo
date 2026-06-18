@@ -1,0 +1,624 @@
+/* Demo persona toggle */
+.demo-persona-toggle {
+  display: inline-flex;
+  max-width: calc(100vw - 2 * var(--demo-stage-pad-x));
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.demo-persona-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-2);
+  font: 600 14px/20px inherit;
+  padding: 10px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.demo-persona-btn.active {
+  background: var(--blue);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .demo-persona-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .demo-persona-btn .demo-persona-label-long {
+    display: none;
+  }
+
+  .demo-persona-btn .demo-persona-label-short {
+    display: inline;
+  }
+}
+
+@media (min-width: 421px) {
+  .demo-persona-btn .demo-persona-label-short {
+    display: none;
+  }
+}
+
+.guest-invite-list {
+  padding-top: 0;
+}
+
+.guest-invite-item .row-preview {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* Shared device home hint (guest idle) */
+.device-home-hint {
+  margin: auto 20px 100px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* iOS safe area for guest in-phone app screens */
+:root {
+  --guest-safe-top: 36px;
+}
+
+.guest-in-app-screen {
+  position: relative;
+  box-sizing: border-box;
+  padding-top: var(--guest-safe-top) !important;
+}
+
+.guest-ios-status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--guest-safe-top);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 20px 5px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #000;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.guest-ios-status-bar-dark {
+  color: #fff;
+}
+
+.guest-ios-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.guest-ios-status-icons svg {
+  display: block;
+}
+
+.phone-screen:has(.guest-in-app-screen) {
+  padding-top: 0;
+}
+
+/* iMessage SMS invite */
+.imessage-screen {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.imessage-header {
+  flex: 0 0 auto;
+  margin-top: calc(-1 * var(--guest-safe-top));
+  padding: calc(4px + var(--guest-safe-top)) 12px 8px;
+  border-bottom: 1px solid #d1d1d6;
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+.imessage-screen .guest-ios-status-bar {
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+.imessage-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  color: #007aff;
+  font: inherit;
+  font-size: 16px;
+  padding: 0;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.imessage-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.imessage-avatar {
+  margin: 0 auto;
+}
+
+.imessage-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+}
+
+.imessage-chevron {
+  display: none;
+}
+
+.imessage-thread {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 14px;
+  background: #fff;
+}
+
+.imessage-timestamp {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 11px;
+  color: #8e8e93;
+}
+
+.imessage-bubble {
+  max-width: 82%;
+  border: none;
+  border-radius: 18px;
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.imessage-bubble-in {
+  background: #e9e9eb;
+  color: #000;
+  border-bottom-left-radius: 4px;
+}
+
+.imessage-bubble-text {
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+.imessage-bubble-link {
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  color: #007aff;
+}
+
+.imessage-composer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 14px;
+  border-top: 1px solid #d1d1d6;
+  background: #f6f6f6;
+}
+
+.imessage-plus {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e5e5ea;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  color: #8e8e93;
+  flex-shrink: 0;
+}
+
+.imessage-input {
+  flex: 1;
+  border: 1px solid #d1d1d6;
+  border-radius: 18px;
+  padding: 8px 14px;
+  font-size: 15px;
+  color: #8e8e93;
+  background: #fff;
+}
+
+.imessage-mic {
+  font-size: 18px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* Email invite */
+.guest-email-screen {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.guest-email-meta {
+  flex: 0 0 auto;
+  padding: 6px 14px 10px;
+  border-bottom: 1px solid var(--border);
+  background: #fafafa;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--text-2);
+}
+
+.guest-email-meta-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.guest-email-meta-label {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.guest-email-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px 14px 24px;
+}
+
+.guest-email-title {
+  margin: 0 0 14px;
+  font-size: 20px;
+  line-height: 26px;
+  text-align: center;
+}
+
+.guest-email-hero {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.guest-email-hero-img {
+  display: block;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+}
+
+.guest-email-hero-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.guest-email-body h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.guest-email-body p {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--text-2);
+}
+
+.guest-email-cta {
+  display: block;
+  width: 100%;
+  margin: 18px 0 10px;
+  border: none;
+  border-radius: 6px;
+  background: #111;
+  color: #fff;
+  font: 700 15px/1 inherit;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.guest-email-fallback {
+  font-size: 11px !important;
+  line-height: 16px !important;
+  word-break: break-all;
+}
+
+.guest-email-footer {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f3f3f3;
+}
+
+.guest-email-footer p {
+  margin: 0;
+  font-size: 10px;
+  line-height: 14px;
+  color: #777;
+}
+
+.guest-link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--blue);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* RCS invite */
+.guest-rcs-screen {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.guest-rcs-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.guest-rcs-back {
+  border: none;
+  background: none;
+  color: var(--blue);
+  font-size: 28px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.guest-rcs-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+  margin-right: 24px;
+}
+
+.guest-rcs-brand-logo {
+  flex-shrink: 0;
+}
+
+.guest-rcs-brand-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.guest-rcs-verified {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 9px;
+}
+
+.guest-rcs-label {
+  margin: 8px 0 12px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.guest-rcs-card {
+  margin: 0 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ececec;
+}
+
+.guest-rcs-card-image-wrap {
+  position: relative;
+}
+
+.guest-rcs-card-image {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.guest-rcs-card-logo {
+  position: absolute;
+  left: 14px;
+  bottom: -16px;
+}
+
+.guest-rcs-card-body {
+  padding: 24px 16px 14px;
+}
+
+.guest-rcs-card-body h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.guest-rcs-card-body p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.guest-rcs-cta {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font: 700 16px/1 inherit;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.guest-rcs-optout {
+  margin: 10px 0 0 !important;
+  font-size: 11px !important;
+  text-align: center;
+}
+
+.guest-rcs-composer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 16px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.guest-rcs-input {
+  flex: 1;
+  border-radius: 18px;
+  background: #f2f2f7;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+/* In-phone Safari (SFSafariViewController) + survey */
+.guest-browser-screen {
+  background: #f2f2f7;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.guest-browser-chrome {
+  flex: 0 0 auto;
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 0.5px solid rgba(60, 60, 67, 0.18);
+  margin-top: calc(-1 * var(--guest-safe-top));
+  padding-top: var(--guest-safe-top);
+}
+
+.guest-browser-screen .guest-ios-status-bar {
+  background: rgba(249, 249, 249, 0.94);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.guest-safari-topbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 8px 8px;
+}
+
+.guest-safari-done {
+  border: none;
+  background: none;
+  color: #007aff;
+  font: 400 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  padding: 6px 8px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.guest-safari-address-field {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  height: 32px;
+  padding: 0 8px 0 10px;
+  border-radius: 10px;
+  background: rgba(118, 118, 128, 0.12);
+  color: #1c1c1e;
+}
+
+.guest-safari-lock-icon {
+  flex-shrink: 0;
+  color: #8e8e93;
+}
+
+.guest-safari-url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.guest-safari-reload {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: #007aff;
+  padding: 0;
+  cursor: default;
+}
+
+.guest-safari-share {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: none;
+  color: #007aff;
+  padding: 0;
+  cursor: default;
+}
+
+.guest-browser-content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  position: relative;
+  background: #fafafa;
+}
+

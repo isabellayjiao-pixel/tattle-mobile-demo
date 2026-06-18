@@ -1,0 +1,1025 @@
+/**
+ * Tattle guest survey styles — mirrors tattleapp.com/tatte class structure.
+ * Brand assets are swapped via merchantBrand; all tokens match Tattle CSS.
+ */
+
+.tattle-survey-page {
+  --ts-primary: #0476d1;
+  --ts-label: #495a7c;
+  --ts-text: #444444;
+  --ts-text-body: #353535;
+  --ts-border: #f4f5f7;
+  --ts-block-label-bg: #fafbfc;
+  --ts-error: #b00120;
+  --ts-star-empty: #c5d4dc;
+  --ts-star-good: #4a9b47;
+  --ts-star-mid: #e0a83a;
+  --ts-star-bad: #8b2332;
+  --ts-radio-border: rgba(120, 138, 175, 0.75);
+  --ts-canvas: #fafafa;
+
+  min-height: 100%;
+  background: var(--ts-canvas);
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  color: var(--ts-text-body);
+}
+
+/* Header */
+.tattle-survey-page .merchant-header {
+  padding: 0;
+}
+
+.tattle-survey-page .merchant-header-visual {
+  position: relative;
+  background: var(--ts-primary);
+}
+
+.tattle-survey-page .merchant-header-content {
+  position: relative;
+}
+
+.tattle-survey-page .banner-merchant {
+  display: block;
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+}
+
+.tattle-survey-page .circle-logo-merchant {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Progress — full-bleed strip between hero and survey card */
+.tattle-survey-page .progress.progress-survey {
+  height: 4px;
+  margin: 0;
+  border-radius: 0;
+  background: var(--ts-border);
+  flex-shrink: 0;
+}
+
+.tattle-survey-page .progress.progress-survey .progress-bar {
+  height: 100%;
+  background: var(--ts-primary);
+  transition: width 280ms ease;
+}
+
+/* Panel shell */
+.tattle-survey-page .merchant-survey-panel {
+  padding: 0 16px 24px;
+}
+
+.tattle-survey-page .survey-panel {
+  width: 100%;
+  margin: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px 0 rgba(33, 81, 101, 0.08), 0 0 6px 0 rgba(33, 81, 101, 0.08);
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Block labels */
+.tattle-survey-page .survey-block-label {
+  background: var(--ts-block-label-bg);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ts-label);
+  border-top: 1px solid var(--ts-border);
+  border-bottom: 1px solid var(--ts-border);
+  padding: 13px 20px;
+  margin: 0;
+}
+
+.tattle-survey-page .survey-block-label.section-heading {
+  text-align: center;
+  color: #666;
+  background: #f0f0f0;
+}
+
+.tattle-survey-page .survey-block-label.muted {
+  background: #f0f0f0;
+  color: #666;
+  font-weight: 400;
+}
+
+/* Location panel */
+.tattle-survey-page .location-search {
+  margin: 0;
+}
+
+.tattle-survey-page .search-input {
+  display: flex;
+  border-bottom: 1px solid var(--ts-border);
+  padding: 14px 21px 12px;
+  align-items: center;
+  gap: 12px;
+}
+
+.tattle-survey-page .search-input .search-icon {
+  color: #d1d2d2;
+  font-size: 17px;
+  font-style: normal;
+}
+
+.tattle-survey-page .search-input .fa-search::before {
+  content: "⌕";
+}
+
+.tattle-survey-page .search-input input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  font-size: 16px;
+  line-height: 30px;
+  min-height: 28px;
+  color: var(--ts-text-body);
+}
+
+.tattle-survey-page .nearest-location-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  background: #fff;
+  padding: 14px 21px 12px 16px;
+  color: var(--ts-primary);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tattle-survey-page .location-pin-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.tattle-survey-page .location-listbox {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 340px;
+  overflow: auto;
+}
+
+.tattle-survey-page .location-item {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--ts-border);
+  background: #fff;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 21px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+
+.tattle-survey-page .location-item.active {
+  padding-right: 72px;
+}
+
+.tattle-survey-page .location-logo {
+  flex-shrink: 0;
+}
+
+.tattle-survey-page .location-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 19px;
+  color: #333;
+}
+
+.tattle-survey-page .location-address {
+  display: block;
+  font-size: 12px;
+  line-height: 19px;
+  color: #777;
+}
+
+.tattle-survey-page .change-link {
+  position: absolute;
+  right: 21px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: var(--ts-primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Experience time pickers — two sibling .tttl-datepicker-new rows (tattleapp.com/tatte) */
+.tattle-survey-page #experience-time-new {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 26px 14px;
+  gap: 8px;
+}
+
+.tattle-survey-page #experience-time-new .tttl-datepicker-new {
+  flex: 1 1 0;
+  min-width: 0;
+  width: auto;
+}
+
+.tattle-survey-page #experience-time-new .tttl-datepicker-new:first-child {
+  flex: 0 1 38%;
+}
+
+.tattle-survey-page #experience-time-new .text-center {
+  text-align: center;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date table {
+  width: 100%;
+  max-width: 100%;
+  height: 38px;
+  border-collapse: collapse;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-arrow {
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-arrow .arrow-button {
+  border: solid 1px rgba(120, 138, 175, 0.25);
+  box-shadow: 0 2px 8px 0 rgba(21, 37, 43, 0.1);
+  height: 100%;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-arrow .arrow-button button {
+  border: none;
+  background: none;
+  height: 100%;
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-arrow .arrow-button.left {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-arrow .arrow-button.right {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-arrow .fa {
+  color: #0476d1;
+  font-size: 16px;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-label {
+  width: 100%;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-label .label-date {
+  height: 100%;
+  border-top: solid 1px rgba(120, 138, 175, 0.25);
+  border-bottom: solid 1px rgba(120, 138, 175, 0.25);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 35px;
+  color: #495a7c;
+}
+
+.tattle-survey-page #experience-time-new .tttl-date td.tttl-datepicker-label .label-date div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 0 2px;
+}
+
+/* Radio lists */
+.tattle-survey-page .list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tattle-survey-page .list-group-item {
+  border-bottom: 1px solid #eff2f7;
+}
+
+.tattle-survey-page .survey-select-item {
+  width: 100%;
+  border: none;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 22px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.tattle-survey-page .survey-select-item .title {
+  font-size: 16px;
+  color: #535353;
+}
+
+.tattle-survey-page .ui-radio {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--ts-radio-border);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.tattle-survey-page .ui-radio.checked {
+  border-color: var(--ts-primary);
+}
+
+.tattle-survey-page .ui-radio.checked::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--ts-primary);
+}
+
+/* Category / overall questions */
+.tattle-survey-page .survey-panel-block,
+.tattle-survey-page .survey-question,
+.tattle-survey-page .survey-submit-email {
+  text-align: center;
+}
+
+.tattle-survey-page .survey-panel-block {
+  padding: 36px 16px 0;
+}
+
+.tattle-survey-page .survey-question {
+  padding: 24px 0 0;
+}
+
+.tattle-survey-page .survey-title {
+  font-size: 18px;
+  color: var(--ts-label);
+  font-weight: 500;
+  margin: 0 16px 8px;
+}
+
+.tattle-survey-page .survey-subtitle {
+  font-size: 18px;
+  font-weight: 300;
+  color: #555;
+  margin: 0 8px 28px;
+  line-height: 1.45;
+}
+
+.tattle-survey-page .survey-question .survey-subtitle {
+  margin-bottom: 24px;
+}
+
+.tattle-survey-page .factor-prompt {
+  margin: 20px 16px 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ts-label);
+  text-align: left;
+}
+
+.tattle-survey-page .field-header,
+.tattle-survey-page .field-label {
+  margin: 16px 16px 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ts-label);
+  text-align: left;
+  display: block;
+}
+
+.tattle-survey-page .star.field {
+  padding: 25px 10px 30px;
+}
+
+.tattle-survey-page .star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  text-align: center;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.tattle-survey-page .star-rating .star {
+  padding: 4px;
+  color: #606f92;
+  font-size: 36px;
+  list-style-type: none;
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.tattle-survey-page .star-rating .star button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.tattle-survey-page .star-rating .star.filled {
+  color: #d99d25;
+}
+
+.tattle-survey-page .star-rating.color.selected-1 .star.filled {
+  color: #a50126;
+}
+
+.tattle-survey-page .star-rating.color.selected-2 .star.filled {
+  color: #f56d43;
+}
+
+.tattle-survey-page .star-rating.color.selected-4 .star.filled {
+  color: #69a027;
+}
+
+.tattle-survey-page .star-rating.color.selected-5 .star.filled {
+  color: #006837;
+}
+
+.tattle-survey-page .star-rating-overall .star,
+.tattle-survey-page .star-rating-category .star {
+  font-size: 30px;
+}
+
+/* Factor ratings */
+.tattle-survey-page .snapshot-reason-ratings {
+  border-top: 1px solid var(--ts-border);
+  padding: 8px 16px 24px;
+}
+
+.tattle-survey-page .snapshot-reason {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--ts-border);
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--ts-text);
+}
+
+.tattle-survey-page .snapshot-reason:last-child {
+  border-bottom: none;
+}
+
+.tattle-survey-page .snapshot-reason-label {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  padding-right: 8px;
+}
+
+.tattle-survey-page .snapshot-reason-faces {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+/* Tattle positive/negative face selectors — from tattle.css */
+.tattle-survey-page .positive-negative-selectors {
+  display: inline-flex;
+  margin: 0;
+  --default: #fff;
+  --one: #b00020;
+  --three: #636876;
+  --five: #26936a;
+  --face-lines: #606f92;
+  --face-lines-selected: #fff;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle {
+  outline: 0;
+  cursor: pointer;
+  margin: 0 8px 0 0;
+  text-align: center;
+  font-size: 29px;
+  padding: 0;
+  line-height: 1;
+  vertical-align: middle;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle:last-child {
+  margin-right: 0;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle svg {
+  cursor: pointer;
+  background: transparent;
+  transition: all 150ms;
+  display: block;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral svg #face,
+.tattle-survey-page .positive-negative-selectors .circle.positive svg #face,
+.tattle-survey-page .positive-negative-selectors .circle.negative svg #face {
+  fill: var(--default) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.neutral svg #eye_right,
+.tattle-survey-page .positive-negative-selectors .circle.positive svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.positive svg #eye_right,
+.tattle-survey-page .positive-negative-selectors .circle.negative svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.negative svg #eye_right {
+  fill: var(--face-lines) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.neutral svg #face-outline,
+.tattle-survey-page .positive-negative-selectors .circle.positive svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.positive svg #face-outline,
+.tattle-survey-page .positive-negative-selectors .circle.negative svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.negative svg #face-outline {
+  stroke: var(--face-lines) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative:hover svg #face {
+  fill: var(--default) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative:hover svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.negative:hover svg #eye_right {
+  fill: var(--one) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative:hover svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.negative:hover svg #face-outline {
+  stroke: var(--one) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral:hover svg #face {
+  fill: var(--default) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral:hover svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.neutral:hover svg #eye_right {
+  fill: var(--three) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral:hover svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.neutral:hover svg #face-outline {
+  stroke: var(--three) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.positive:hover svg #face {
+  fill: var(--default) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.positive:hover svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.positive:hover svg #eye_right {
+  fill: var(--five) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.positive:hover svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.positive:hover svg #face-outline {
+  stroke: var(--five) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative.selected svg #face-outline,
+.tattle-survey-page .positive-negative-selectors .circle.neutral.selected svg #face-outline,
+.tattle-survey-page .positive-negative-selectors .circle.positive.selected svg #face-outline {
+  stroke: transparent !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative.selected svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.negative.selected svg #eye_right,
+.tattle-survey-page .positive-negative-selectors .circle.neutral.selected svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.neutral.selected svg #eye_right,
+.tattle-survey-page .positive-negative-selectors .circle.positive.selected svg #eye_left,
+.tattle-survey-page .positive-negative-selectors .circle.positive.selected svg #eye_right {
+  fill: var(--face-lines-selected) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative.selected svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.neutral.selected svg #mouth,
+.tattle-survey-page .positive-negative-selectors .circle.positive.selected svg #mouth {
+  stroke: var(--face-lines-selected) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.negative.selected svg #face {
+  fill: var(--one) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.neutral.selected svg #face {
+  fill: var(--three) !important;
+}
+
+.tattle-survey-page .positive-negative-selectors .circle.positive.selected svg #face {
+  fill: var(--five) !important;
+}
+
+/* Text fields */
+.tattle-survey-page .field.textarea {
+  display: block;
+  width: calc(100% - 32px);
+  margin: 0 16px 12px;
+  border: 1px solid rgba(120, 138, 175, 0.75);
+  border-radius: 3px;
+  min-height: 77px;
+  padding: 10px;
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.tattle-survey-page .panel-invalid.field-footer {
+  margin: 0 16px 12px;
+  padding: 4px 12px;
+  background: var(--ts-error);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.tattle-survey-page .panel-invalid.field-footer strong {
+  font-weight: 700;
+}
+
+/* Email step */
+.tattle-survey-page .survey-submit-email {
+  padding: 36px 16px 0;
+}
+
+.tattle-survey-page .survey-email-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ts-label);
+  margin: 0 8px;
+  line-height: 1.4;
+}
+
+.tattle-survey-page .survey-email {
+  margin: 33px auto 35px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.tattle-survey-page .email-input input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--ts-primary);
+  background: rgba(4, 118, 209, 0.06);
+  padding: 12px 10px;
+  font-size: 16px;
+  color: var(--ts-text-body);
+  outline: none;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.tattle-survey-page .email-input input::placeholder {
+  color: #999;
+}
+
+/* Photo upload */
+.tattle-survey-page .upload-photo-block {
+  padding-bottom: 8px;
+}
+
+.tattle-survey-page .upload-photo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 16px 6px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  background: var(--ts-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tattle-survey-page .fa-camera::before {
+  content: "📷";
+}
+
+.tattle-survey-page .photo-selected-note {
+  margin: 0 16px;
+  font-size: 12px;
+  color: var(--ts-star-good);
+}
+
+.tattle-survey-page .upload-photo-note {
+  margin: 6px 16px 0;
+  font-size: 11px;
+  color: #999;
+}
+
+.tattle-survey-page .survey-privacy {
+  margin: 0 16px 20px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #777;
+  text-align: center;
+}
+
+.tattle-survey-page .privacy-link {
+  border: none;
+  background: none;
+  padding: 0;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Action panel */
+.tattle-survey-page .survey-action-panel {
+  border-top: 1px solid var(--ts-border);
+  padding: 26px 20px 35px;
+  text-align: center;
+}
+
+.tattle-survey-page .btn {
+  border-radius: 4px;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.tattle-survey-page .btn-default.btn-back {
+  margin-right: 26px;
+  padding: 7px 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: var(--ts-primary);
+  font-weight: 500;
+}
+
+.tattle-survey-page .bg-primary.btn-submit-2 {
+  padding: 7px 40px;
+  border: 1px solid var(--ts-primary);
+  background: var(--ts-primary);
+  color: #fff;
+  font-weight: 500;
+}
+
+.tattle-survey-page .bg-primary.btn-submit-2:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Location modal */
+.tattle-survey-page .modal-location-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 30;
+  padding: 20px;
+}
+
+.tattle-survey-page .modal-location {
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.tattle-survey-page .modal-location-body {
+  padding: 24px 20px 16px;
+  text-align: center;
+}
+
+.tattle-survey-page .geo-location img {
+  width: 34px;
+  height: auto;
+  margin: 0 auto 12px;
+}
+
+.tattle-survey-page .location-title-wrap {
+  border: 1px solid var(--ts-primary);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+
+.tattle-survey-page .location-main p {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #555;
+}
+
+.tattle-survey-page .location-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.tattle-survey-page .btn-dismiss {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: var(--ts-primary);
+  font-weight: 500;
+}
+
+.tattle-survey-page .btn-close {
+  flex: 1;
+  padding: 8px 12px;
+}
+
+/* Post-survey success — reward, review link, menu item ratings */
+.tattle-survey-page .survey-complete-section {
+  border-bottom: 1px solid var(--ts-border);
+}
+
+.tattle-survey-page .survey-complete-panel {
+  padding: 30px 22px 26px;
+  text-align: center;
+}
+
+.tattle-survey-page .reward-box {
+  font-size: 15px;
+  text-align: center;
+}
+
+.tattle-survey-page .reward-box .text-primary {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ts-primary);
+  line-height: 1.35;
+}
+
+.tattle-survey-page .reward-available {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--ts-text-body);
+}
+
+.tattle-survey-page .btn-redeem {
+  display: inline-block;
+  margin: 0 auto 18px;
+  padding: 10px 28px;
+  border: 1px solid var(--ts-primary);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ts-primary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.tattle-survey-page .survey-complete-message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.tattle-survey-page .message-public-review {
+  margin: 40px 0 25px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ts-text-body);
+  text-align: center;
+}
+
+.tattle-survey-page .btn-provider-wrapper {
+  margin: 0;
+}
+
+.tattle-survey-page .btn-public-review-provider {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 12px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #0071e8;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #0071e8;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.tattle-survey-page .social-media-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.tattle-survey-page .survey-complete-mlf .survey-block-label.text-center {
+  text-align: center;
+}
+
+.tattle-survey-page .mlf-items {
+  padding: 8px 0 4px;
+}
+
+.tattle-survey-page .mlf-item-row {
+  margin-bottom: 28px;
+}
+
+.tattle-survey-page .mlf-item-row:last-child {
+  margin-bottom: 12px;
+}
+
+.tattle-survey-page .mlf-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5em;
+}
+
+.tattle-survey-page .mlf-child {
+  flex: 1;
+  width: 100%;
+}
+
+.tattle-survey-page .mlf-item {
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  text-transform: capitalize;
+  color: #000;
+  padding-top: 10px;
+  margin: 0 0 6px;
+}
+
+.tattle-survey-page .mlf-child .star-rating {
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.tattle-survey-page .survey-complete-submit .survey-action-panel {
+  border-top: none;
+  padding-top: 10px;
+}
+
+.tattle-survey-page .survey-complete-submit .survey-privacy {
+  margin-top: 18px;
+}
+
+.guest-browser-content {
+  position: relative;
+}
+

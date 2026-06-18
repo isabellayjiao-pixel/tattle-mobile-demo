@@ -1,0 +1,48 @@
+ ,Tier,Notification Type,Trigger,Frequency Cap,Deep Link Destination,Title,Body,Priority
+,,New 5 star survey submission,New survey submitted with survey score 4-5,"Real-time, no cap",Inbox → Specific submission,🌟 New 5-Star Survey,Congratulations! Tap to send a quick thank-you.,P0
+,"1
+Critical",New 4 star survey submission,New survey submitted with survey score 4-5,"Real-time, no cap",Inbox → Specific submission,🔔 New 4-Star Survey,Tap to view details and reply.,P0
+,,New 3 star survey submission,New incident flagged 3 stars (minus high-value guest at risk),"Real-time, no cap",Inbox → Specific submission,⚠️ New 3-Star Survey,Tap to view details and reply.,P0
+,,New 1-2 star survey submission,New incident flagged with 1-2 stars (minus high-value guest at risk),"Real-time, no cap",Inbox → Specific incident,🚨 Critical Incident,Guest issue reported at [Location]. Tap to recover now.,P0
+,,High-value guest at risk,Survey score ≤ 3 stars from repeat customer (with multiple transactions),"Real-time, no cap",Inbox → Specific submission,⚠️ Loyal Guest at Risk,Negative feedback from a repeat customer. Respond immediately!,P0
+,,New 5 star review posted,New 5 star review on review platform,"Real-time, no cap",Inbox → Specific review,🎉 New [Platform] Review,Good job on a [5]-star review! Your hard work is paying off.,P0
+,,New 4 star review posted,New 4 star review on review platform,"Real-time, no cap",Inbox → Specific review,🔔 New [Platform] Review,[4]-star review posted. Tap to reply.,P0
+,,New negative review posted,New 1-3 star review on review platform,"Real-time, no cap",Inbox → Specific review,⚠️ New [1/2/3]-Star Review,Posted on [Platform]. Respond now to turn it around.,P0
+,,Open action items,All open action items this month,"Round-up notification, Day 5, Day 20",To-Do Tab,📋 Pending Action Items,You have [xx] open tasks. Time for a quick check-in?,P0
+,,Objective Set,"Beginning of the month.
+Dynamic based on if they hit the objective last month","Day 1, once",To-Do Tab,🎯 [Month] Objective Set,"New target is live. Hit it to keep your streak alive!
+New month, new opportunity. You've got this!",P0
+,,Guest reply,New guest reply to a previous email (or text) sent,"Real-time, no cap",Inbox → Specific response,✉️ New Guest Reply,Don't let them wait. Tap to respond now.,P0
+,,,,,,,,
+,"2
+Habits",Morning Briefing,7:30 AM local time / Start of day,Daily (only if items exist),To-Do Tab,☀️ Morning Briefing,3 tasks on your to-do list. Start your day strong!,P1
+,,Evening Summary,"8:30 PM local time / End of service period, IF there's change in metrics",8:30 PM local time,Stats,🌙 Evening Summary,"Today's results: 8 guests recovered, 15 feedback submitted.",P1
+,,Monthly CER change,End of month,"Day 30, once in the afternoon",Stats,📈 Monthly CER Update,You finished this month with CER: 4.83. Tap to see details.,P1
+,,Unread / unreplied inbox digest,Unread items > 0; unresponded feedback > 0,Every 4 hours,To-Do List → Specific item,📬 Inbox Status,5 guests waiting for response. Quick replies = happy guests!,P1
+,,,,,,,,
+,"3
+Celebrations",Guest recovered,Guest recovered,"Real-time, no cap",Inbox → Conversation thread,🎉 Guest Recovered!,"[Maria] said ""Thanks for making it right!""?",P2
+,,Streak Milestone,"User logs in X consecutive days (3, 7, 14, 30, 60, 100)",Once per milestone,Stats,🔥 [7]-Day Streak!,You are building a reputation of excellence. Keep it up!,P2
+,,CER Personal Best,"Location CER hits all-time high in the last 3 months using rolling 90-day CER, only if change >= 0.05",Once per new record,Stats → CER trend,🏆 New CER Record!,You just hit your highest score in the last 90 days. Guests are loving it!,P2
+,,Benchmarking Win,Location moves up in company rankings,Weekly (Monday 9 AM),Stats → Benchmarking,📈 Ranking Update,You jumped 5 spots! Now #12 out of 87 locations.,P2
+,,Zero incident week,If a location has zero incidents across feedback & online reviews (4 in total per week minimum to qualify),End of week,Stats,💯 Perfect Week!,"Zero incidents, happy guests all around. You're crushing it!",P2
+,,Objective Met,When objective is met before end of month,Once,To-Do Tab,🚀Objective Met!,You hit your [Month] CER goal of [4.7]. Incredible work!,P2
+,,Objective Progress (only if using AI Coach),Disable once Objective Met notification is triggered,"Day 15, Day 30",Stats,📈 [Month] Update,"Your [Op Cat] improved by [0.5]. Keep it up!
+Your [Op Cat] decreased by [0.5]. There's still time to improve!",P2
+,,Recovery Revenue Milestone,"Cumulative recovered revenue hits $500/$1K/$5K, $1K increment afterwards",Once per threshold,Stats → Recovered Revenue,"💰 $1,000 Recovered!",That is real impact. Great work!,P2
+,,,,,,,,
+,"4
+Weekly roundup",Weekly Stats Report,Week ends,"Sunday 6:00 PM, weekly",Stats Dashboard,📊 Weekly Review,"CER 89 (↑4), 24 recoveries, ranking #15. Tap for details.",P3
+,,Trend Alert,Significant pattern detected (incident spike by daypart/channel),"Pattern detected, Max 2/week",Stats → Filtered view,📈 Trend Alert: Incidents,Dinner service incidents up 40% this week. Take a look.,P3
+,,Competitive Intelligence,Significant ranking change vs peers,"Movement > 10 spots, Max 1/week",Stats → Benchmarking,👀 Ranking Alert,Downtown location just passed you. What can you learn?,P3
+,,,,,,,,
+,"5
+Re-engagement",Your Location Needs You,No login for 48 hours + pending items,"72 hours after last login, once per absence period",Inbox or To-Do,👋 Outstanding Tasks,5 new items and 3 urgent tasks await. Login now.,P3
+,,,For locations with absolutely no activity after two weeks,Once per week after triggered,Stats → CER trend,📉 Your Scores Update,CER dropped to 78 while you were away. Time to check in!,P3
+,,,,,,,"CER rose by x whil you were away, log in to see what else is new!",
+,,,,,,,,
+,,Mentions,,,,,,
+,,Tags,,,,,,
+,,Celebratory tags (team member shoutout),,,,,,
+,,Forms submission,"any form for a single location is going to be a complaint (95%), store info, job inquiry, recognition",,,,,
+,,Google score,,,,,,
