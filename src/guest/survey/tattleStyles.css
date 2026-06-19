@@ -70,11 +70,14 @@
 
 /* Panel shell */
 .tattle-survey-page .merchant-survey-panel {
-  padding: 0 16px 24px;
+  padding: 0 0 24px;
+  display: flex;
+  justify-content: center;
 }
 
 .tattle-survey-page .survey-panel {
-  width: 100%;
+  width: calc(100% - 32px);
+  max-width: 311px;
   margin: 0;
   border-radius: 5px;
   box-shadow: 0 1px 2px 0 rgba(33, 81, 101, 0.08), 0 0 6px 0 rgba(33, 81, 101, 0.08);
@@ -781,6 +784,11 @@
   border-top: 1px solid var(--ts-border);
   padding: 26px 20px 35px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: nowrap;
 }
 
 .tattle-survey-page .btn {
@@ -791,12 +799,13 @@
 }
 
 .tattle-survey-page .btn-default.btn-back {
-  margin-right: 26px;
+  margin-right: 0;
   padding: 7px 20px;
   border: 1px solid #ddd;
   background: #fff;
   color: var(--ts-primary);
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .tattle-survey-page .bg-primary.btn-submit-2 {
@@ -805,6 +814,7 @@
   background: var(--ts-primary);
   color: #fff;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .tattle-survey-page .bg-primary.btn-submit-2:disabled {
@@ -976,6 +986,7 @@
 
 .tattle-survey-page .mlf-item-row {
   margin-bottom: 28px;
+  text-align: center;
 }
 
 .tattle-survey-page .mlf-item-row:last-child {
@@ -986,7 +997,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 0 1.5em;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .tattle-survey-page .mlf-child {
@@ -1003,6 +1017,7 @@
   color: #000;
   padding-top: 10px;
   margin: 0 0 6px;
+  text-align: center;
 }
 
 .tattle-survey-page .mlf-child .star-rating {
@@ -1013,10 +1028,16 @@
 .tattle-survey-page .survey-complete-submit .survey-action-panel {
   border-top: none;
   padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
 .tattle-survey-page .survey-complete-submit .survey-privacy {
-  margin-top: 18px;
+  margin: 0;
+  text-align: center;
 }
 
 .guest-browser-content {

@@ -43,10 +43,10 @@ import {
   IconBell,
   ChannelLogo
 } from "./icons";
-import profileBannerImg from "./assets/profile-banner.jpg";
 import tattleAppIcon from "./assets/tattle-app-icon.jpg";
 import tattleLogoWhite from "./assets/tattle-logo-white.png";
 import MerchantBrandLogo from "./components/MerchantBrandLogo";
+import { merchantBrand } from "../merchantBrand";
 import IPhoneShell from "./demo/IPhoneShell";
 import DemoPersonaToggle from "./demo/DemoPersonaToggle";
 import DemoStageShell from "./demo/DemoStageShell";
@@ -2954,13 +2954,13 @@ function ProfileScreen() {
       <div className="scroll-area">
         <section className="surface-card profile-card">
           <div className="profile-banner">
-            <img className="profile-banner-img" src={profileBannerImg} alt="Restaurant food" />
+            <img className="profile-banner-img" src={merchantBrand.banner} alt="Restaurant food" />
             <span className="profile-admin">Admin</span>
             <ProfileBrandLogo />
           </div>
           <div className="profile-info">
             <div>
-              <h3>Grilling Me Softly</h3>
+              <h3>{merchantBrand.name}</h3>
               <p>Merchant ID: 2651</p>
             </div>
             <button className="switch-link" type="button">

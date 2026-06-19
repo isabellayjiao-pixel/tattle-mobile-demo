@@ -1,5 +1,4 @@
 import { merchantBrand } from "../../merchantBrand";
-import MerchantBrandLogo from "../components/MerchantBrandLogo";
 import GuestIOSStatusBar from "./GuestIOSStatusBar";
 
 export default function GuestSmsInvite({ onOpenSurvey }) {
@@ -14,9 +13,22 @@ export default function GuestSmsInvite({ onOpenSurvey }) {
           <span>Messages</span>
         </button>
         <div className="imessage-contact">
-          <MerchantBrandLogo variant="avatar" className="imessage-avatar" />
-          <span className="imessage-name">{merchantBrand.name}</span>
-          <span className="imessage-chevron">›</span>
+          <span className="imessage-anon-avatar" aria-hidden>
+            <svg viewBox="0 0 56 56" width="54" height="54">
+              <defs>
+                <linearGradient id="anon-avatar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#8aa8dc" />
+                  <stop offset="100%" stopColor="#7b8fca" />
+                </linearGradient>
+              </defs>
+              <circle cx="28" cy="28" r="28" fill="url(#anon-avatar-gradient)" />
+              <circle cx="28" cy="21" r="10" fill="#f3f6ff" />
+              <path d="M10 47c2-10 10-14 18-14s16 4 18 14" fill="#f3f6ff" />
+            </svg>
+          </span>
+          <span className="imessage-name">+1 5512834876</span>
+          <span className="imessage-subtitle">Text Message · SMS</span>
+          <span className="imessage-subtitle">Sat, Jan 10 at 06:11</span>
         </div>
       </header>
 

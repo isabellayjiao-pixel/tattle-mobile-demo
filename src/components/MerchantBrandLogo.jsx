@@ -1,7 +1,7 @@
 import { merchantBrand } from "../../merchantBrand";
 
 /**
- * Shared Grilling Me Softly logo — matches operator Settings profile branding.
+ * Shared merchant logo used across operator and guest screens.
  */
 export default function MerchantBrandLogo({
   variant = "profile",

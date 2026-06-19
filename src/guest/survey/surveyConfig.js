@@ -38,16 +38,16 @@ export const frequencyOptions = [
 
 /** Menu items shown on the post-survey success screen (menu-level feedback). */
 export const postSurveyMenuItems = [
-  { id: "cheeseburger", label: "Classic Cheeseburger" },
-  { id: "sweet-potato-fries", label: "Sweet Potato Fries" },
-  { id: "house-lemonade", label: "House Lemonade" },
+  { id: "steak-mezze-salad", label: "Steak Mezze Salad" },
+  { id: "crispy-falafel", label: "Crispy Falafel" },
+  { id: "lemonade", label: "Lemonade" },
 ];
 
 /** Single third-party review provider on the success screen. */
 export const postSurveyReviewProvider = {
   id: "google",
   label: "Google",
-  url: "https://www.google.com/maps/search/Grilling+Me+Softly+reviews",
+  url: "https://www.google.com/maps/search/CAVA+reviews",
 };
 
 /** Ordered survey flow — mirrors tattleapp.com/tatte step sequence. */
